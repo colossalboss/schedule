@@ -12,4 +12,6 @@ To run you need to
 
 * In your terminal run npm install
 
+* then run node index.js
+
 * In your browser open http://localhost:3000
