@@ -8,16 +8,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 // app.use(bodyParser.json());
 
 const obj = [
-  {
-    name: 'Godstar',
-    email: 'stgodstar@gmail.com',
-    address: 'Bayelsa'
-  },
-  {
-    name: 'Gerrald',
-    email: 'sengodstar@gmail.com',
-    address: 'Lagos'
-  }
+
 ];
 
 app.get('/bookings', function(req, res) {
@@ -25,12 +16,18 @@ app.get('/bookings', function(req, res) {
 });
 
 app.post('/bookings', function(req, res) {
-  obj.push({
-    name: req.body.name,
-    email: req.body.email,
-    address: req.body.address
-  });
-  res.send(obj);
+  if (obj.length < 5) {
+    obj.push({
+      name: req.body.name,
+      email: req.body.email,
+      address: req.body.address,
+      phone: req.body.phone,
+      reason: req.body.reason
+    });
+    res.send(obj);
+  } else {
+    res.send('Error');
+  }
 });
 
 app.listen(3000, function() {

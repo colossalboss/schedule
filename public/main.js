@@ -6,16 +6,30 @@ $(function() {
   let $email = $('#email');
   let $address = $('#address');
   let $feedback = $('#feedback');
+  let $phone = $('#phone');
+  let $reason = $('#reason');
 
-  // $booked.on('click', function(e) {
-    // e.preventDefault();
-    $.get('/bookings', function(response) {
-      console.log(response);
-      $.each(response, function(i, item) {
-        $display.append('<div class="well"><p><strong>Name:</strong> ' + item.name + '</p><p><strong>Email:</strong> ' + item.email + '</p><p><strong>Address:</strong> ' + item.address + '</p></div>');
-      });
+
+  $.get('/bookings', function(response) {
+    $scheduled = response;
+    $.each(response, function(i, item) {
+      $display.append('<div class="well"><p><strong>Name:</strong> ' + item.name + '</p><p><strong>Email:</strong> ' + item.email + '</p><p><strong>Address:</strong> ' + item.address + '</p></div>');
     });
-  // });
+  });
+
+
+    function renderBook(obj) {
+      let value = `<div class="well">
+          <p><strong>Name: </strong>${obj.name}</p>
+          <p><strong>Email: </strong>${obj.email}</p>
+          <p><strong>Address: </strong>${obj.address}</p>
+          <p><strong>Phone: </strong>${obj.phone}</p>
+          <p><strong>Why I need to see you: </strong>${obj.reason}<span></span></p>
+        </div>
+      `;
+      $display.append(value);
+      return true;
+    }
 
   function clearInput(a, b, c) {
     a.val('');
@@ -30,15 +44,26 @@ $(function() {
       let details = {
         name: $name.val(),
         email: $email.val(),
-        address: $address.val()
+        address: $address.val(),
+        phone: $phone.val(),
+        reason: $reason.val()
       }
 
       $.post('/bookings', details, function(response) {
         $display.html('');
         clearInput($name, $email, $address);
-        $.each(response, function(i, item) {
-          $display.append('<div class="well"><p><strong>Name:</strong> ' + item.name + '</p><p><strong>Email:</strong> ' + item.email + '</p><p><strong>Address:</strong> ' + item.address + '</p></div>');
-        });
+        if (typeof response === 'object') {
+          $.each(response, function(i, item) {
+            renderBook(item);
+          });
+        } else {
+          $feedback.html('Sorry! no more bookings allowed today.');
+          $.get('/bookings', function(response) {
+            $.each(response, function(i, item) {
+              renderBook(item);
+            });
+          });
+        }
       });
 
     } else {
