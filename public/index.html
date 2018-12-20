@@ -15,7 +15,7 @@
       <li><a href="">Home</a></li>
       <li><a href="">Contact</a></li>
       <li><a href="">Services</a></li>
-      <li><a href="">Book an Appointment</a></li>
+      <li><a class="book" href="">Book an Appointment</a></li>
       <li><a href="" id="booked">Appointments</a></li>
     </ol>
   </div>
@@ -25,12 +25,13 @@
     <h1>I am Doctor Strange</h1>
   </div>
 
-  <div class="content">
+  <div id="display" class="content">
     <div class="row">
       <div class="col-sm-12">
         <div class="well">
-          <h3>Want to meet me?</h3>
-          <form action="">
+          <h3>Want to meet me?<span><a id="meet" class="btn book">Arrane to meet</a></span></h3>
+
+          <form id="form" style="visibility:hidden" action="">
             <input class="form-control" type="text" id="name" placeholder="Your fullname"><br>
             <input class="form-control"  type="email" id="email" placeholder="Your email"><br>
             <input class="form-control"  type="text" id="address" placeholder="Your address"><br>
@@ -43,12 +44,12 @@
       </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-sm-12">
         <div class="well" id="display">
-          hvj
+
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <script src="main.js"></script>

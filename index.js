@@ -12,7 +12,11 @@ const obj = [
 ];
 
 app.get('/bookings', function(req, res) {
-  res.send(obj);
+  if (obj.length > 0) {
+    res.send(obj);
+  } else {
+    res.send('<i class="fa fa-frown-o fa-5x" style="color:orange"></i>');
+  }
 });
 
 app.post('/bookings', function(req, res) {
