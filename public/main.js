@@ -12,23 +12,17 @@ $(function() {
   let $form = $('#form');
 
 
-  $meet.on('click', function(e) {
-    e.preventDefault();
+  // $meet.on('click', function(e) {
+  //   e.preventDefault();
 
-    $form.css('visibility', 'hidden');
-  })
-
-  $('.container').on('click','.book', function(e) {
-    $form.css('visibility', 'visible');
-    e.preventDefault();
-  })
+  //   $form.css('visibility', 'hidden');
+  // });
 
 
   $booked.on('click', function(e) {
     e.preventDefault();
     $display.html('');
     $.get('/bookings', function(response) {
-      $scheduled = response;
       if (typeof response === 'object') {
         $.each(response, function(i, item) {
           renderBook(item);
@@ -61,6 +55,11 @@ $(function() {
     return true;
   }
 
+  function check(obj) {
+    let car = $.find(obj, item => item.name === $name.val());
+    console.log(car)
+  }
+
   $send.on('click', function(e) {
     e.preventDefault();
     if ($name.val() && $email.val() && $address.val()) {
@@ -73,15 +72,15 @@ $(function() {
         reason: $reason.val()
       }
 
+
       $.post('/bookings', details, function(response) {
-        // $display.html('');
+        $display.html('');
         clearInput($name, $email, $address, $phone, $reason);
         if (typeof response === 'object') {
           // $.each(response, function(i, item) {
           //   renderBook(item);
           // });
           console.log('done');
-          $form.html('');
         } else {
           $feedback.html(response);
           // $.get('/bookings', function(response) {

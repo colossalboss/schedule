@@ -21,14 +21,21 @@ app.get('/bookings', function(req, res) {
 
 app.post('/bookings', function(req, res) {
   if (obj.length < 5) {
-    obj.push({
-      name: req.body.name,
-      email: req.body.email,
-      address: req.body.address,
-      phone: req.body.phone,
-      reason: req.body.reason
-    });
-    res.send(obj);
+
+    let checks = obj.find(item => item.name === req.body.name);
+    if (checks === undefined) {
+
+      obj.push({
+        name: req.body.name,
+        email: req.body.email,
+        address: req.body.address,
+        phone: req.body.phone,
+        reason: req.body.reason
+      });
+      res.send(obj);
+    } else {
+      res.send('Name already registered');
+    }
   } else {
     res.send('Error');
   }
