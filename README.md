@@ -3,6 +3,7 @@
 ## Description
 
 The plan is to make an app people can use to book an appointment with the Doctor.
+The app is built with HTML, CSS, JavaScript and also expressjs
 
 ## Instructions
 
